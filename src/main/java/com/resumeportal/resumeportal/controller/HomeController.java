@@ -1,11 +1,11 @@
 package com.resumeportal.resumeportal.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@RestController
+@Controller
 public class HomeController {
     
    /*  @Autowired
@@ -28,4 +28,13 @@ public class HomeController {
         return "Edit Page";
     }
 
+    /*
+    userId is the path variable ex: /view/foo
+    */
+    @GetMapping("/view/{userId}")
+    public String view(@PathVariable("userId") String userId,Model model){
+    	
+    	model.addAttribute("userId",userId);
+        return "profile";
+    }
 }
