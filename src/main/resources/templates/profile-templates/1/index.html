@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://aw12sds.github.io/resume/ -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- <meta http-equiv="Content-Type" content="charset=UTF-8"> -->
+<meta charset="UTF-8">
+<!-- <title
+	th:text="${userProfile.firstName + userProfile.lastName} - Curriculum Vitae">title
+	field</title> -->
+<title th:text="${userProfile.firstName}">title
+	field1</title>
+
+<meta name="viewport" content="width=device-width">
+<meta name="description"
+	th:content="${ 'The Curriculum Vitae of ' +userProfile.firstName+' '+userProfile.lastName}">
+
+
+<link type="text/css" rel="stylesheet"
+	href="../profile-templates/1/style.css">
+<link href="../profile-templates/1/css" rel="stylesheet" type="text/css">
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body id="top">
+	<div id="cv" class="instaFade">
+		<div class="mainDetails">
+			<div id="headshot" class="quickFade">
+				<img src="../profile-templates/1/dp.jpg"
+					th:alt="${userProfile.firstName+' '+userProfile.lastName}">
+			</div>
+
+			<div id="name">
+				<h1 class="quickFade delayTwo">Resume</h1>
+				<h2 class="quickFade delayThree">Profile</h2>
+			</div>
+
+			<div id="contactDetails" class="quickFade delayFour">
+				<ul>
+					<li><a th:href="${userProfile.email}" target="_blank"
+						th:text="${userProfile.email}">email field</a></li>
+					<li>m: <span th:text="${userProfile.phone}">01234567890</span></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div id="mainArea" class="quickFade delayFive">
+			<section>
+				<article>
+					<div class="sectionTitle">
+						<h1>Personal Profile</h1>
+					</div>
+
+					<div class="sectionContent">
+						<p th:text="${userProfile.summary}"></p>
+					</div>
+				</article>
+				<div class="clear"></div>
+			</section>
+
+
+			<section>
+				<div class="sectionTitle">
+					<h1>Work Experience</h1>
+				</div>
+
+				<div class="sectionContent">
+					<article th:each="job : ${userProfile.jobs}">
+						<h2 th:text="${job.company}"></h2>
+							<p class="subDetails">
+								<!-- <span th:text="${job.startDate}"></span> -->
+								<span th:text="${job.startDateFormatted}"></span>  
+							<!--  Syntax to invoke bean from thymeleaf
+								<!-- <span th:text="${@dateFormatUtil.getFormattedDate(job.startDate)}"></span> -->
+								<!-- <span th:switch="${job.isCurrentJob}">
+									<span th:case="false"> <span th:text="${' - '+job.endDate}"></span></span> 
+									<span th:case="true"> <span> - Present</span></span>
+								</span> -->
+								<!-- <span th:text="${job.currentJob}? '- Present' : ${' - '+
+								@dateFormatUtil.getFormattedDate(job.endDate)}"></span> -->
+								
+								<span th:text="${job.currentJob}? '- Present' : ${' - '+job.endDateFormatted}"></span>
+						</p>
+						<p>Description:</p>
+						<ul th:each="responsibility : ${job.responsibilities}">
+							<li th:text="${responsibility}">
+						</ul>
+						
+						<p th:text="${job.designation+' at '+job.company}">
+							<
+						</p>
+						<br> <br>
+					</article>
+					<!-- 		<article>
+						<h2>j2ee developer at Sinosoft Company Limited</h2>
+						<p class="subDetails">April 2016 - Present</p>
+						<p>Description:</p>
+						Auto insurance claims project in China Pacific Insurance, the
+						system of Auto insurance,Workflow of loss occurred,claim
+						registration,survey，loss assessment. claim handling，claim
+						investigation
+						<p></p>
+						claim payment,closed claims<br> Roles &amp; Responsibilities:
+						<br> Developed the application by using Java, JSP, Spring
+						MVC, Servlets, Hibernate, JDBC. <br> webservice of CIRC<br>
+						CREATE PROCEDURE of oracle<br>
+
+					</article>
+					<br> <br>
+					<article>
+						<h2>j2ee developer at Chinasoft International</h2>
+						<p class="subDetails">April 2015 - January 2016</p>
+						Description:<br> Merchant management system in BANK OF
+						NANJING CO.,LTD,the system of receivables of personal loan
+						<p></p>
+						Roles &amp; Responsibilities: <br> Developed the application
+						by using Java, JSP, Spring MVC, Servlets, Hibernate, JDBC.<br>
+						Developed entity classes, Hibernate mapping files for the object
+						relational mapping while configuring Hibernate, also also
+						developed HQLs and Named Queries and wrote Data Access Object
+						(DAO) to handle HQL queries. <br>
+
+						<p></p>
+					</article>
+					<br> <br>
+					<article>
+						<h2>j2ee developer at Chinasoft International</h2>
+						<p class="subDetails">June 2014 - January 2015</p>
+						Description:<br> overdue receivables system in BANK OF
+						NANJING CO.,LTD,the system of receivables of personal loan
+						<p></p>
+						Roles &amp; Responsibilities: <br> Developed the application
+						by using Java, JSP, Spring MVC, Servlets, Hibernate, JDBC. <br>
+						Module of Telegraphic collection<br> Module of SMS collection<br>
+						Module of Staff performance appraisal
+
+						<p></p>
+					</article> -->
+				</div>
+				<div class="clear"></div>
+			</section>
+
+
+			<section>
+				<div class="sectionTitle">
+					<h1>Key Skills</h1>
+				</div>
+
+				<div class="sectionContent" th:each="skill : ${userProfile.skills}">
+						<p th:text="${skill}"></p>
+					
+				</div>
+				<div class="clear"></div>
+			</section>
+
+
+			<section>
+				<div class="sectionTitle">
+					<h1>Education</h1>
+				</div>
+
+				<div class="sectionContent"  th:each="education : ${userProfile.educations}">
+					<article>
+						<h2 th:text="${education.college}">College/University</h2>
+						<p class="subDetails" 
+							th:text="${education.qualification+' , '+education.startDateFormatted+' - '+education.endDateFormatted}">
+						</p>
+						<p th:text="${education.summary}">communication engineering</p>
+					</article>
+
+
+				</div>
+				<div class="clear"></div>
+			</section>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl."
+				: "http://www.");
+		document
+				.write(unescape("%3Cscript src='"
+						+ gaJsHost
+						+ "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script src="../profile-templates/1/ga.js.download"
+		type="text/javascript"></script>
+	<script type="text/javascript">
+		var pageTracker = _gat._getTracker("UA-3753241-1");
+		pageTracker._initData();
+		pageTracker._trackPageview();
+	</script>
+
+
+</body>
+</html>
